@@ -10,6 +10,7 @@ const store = configureStore({
   reducer : rootReducer
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

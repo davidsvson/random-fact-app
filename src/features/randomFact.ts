@@ -1,6 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 
-enum Status {
+export enum FactStatus {
     NORMAL,
     FETCHING,
     SUCCESS,
@@ -9,12 +9,12 @@ enum Status {
 
 interface Fact {
     fact : string | null;
-    status : Status;
+    status : FactStatus;
 }
 
 const initialState : Fact = {
     fact: null,
-    status: Status.NORMAL
+    status: FactStatus.NORMAL
 }
 
 const isFetching = createAction('is fetching fact');
@@ -27,8 +27,20 @@ const randomFactReducer = createReducer(initialState, builder => {
     builder
         .addCase(isFetching, (state)=> (
             {
-                status : Status.FETCHING,
+                status : FactStatus.FETCHING,
                 fact: state.fact   
+            }
+        ))
+        .addCase(success, (state, action) => (
+            {
+                status: FactStatus.SUCCESS,
+                fact: action.payload
+            } 
+        ))
+        .addCase(failure, (state) => (
+            {
+                status: FactStatus.FAILURE,
+                fact: state.fact
             }
         ))
 })
