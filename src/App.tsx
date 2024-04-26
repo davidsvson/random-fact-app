@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import './App.css'
+import RandomFact from './components/RandomFact';
+import GetFact from './components/GetFact';
 
 
 // x hämta en fakta från api och skriv ut till konsolen 
@@ -7,31 +9,20 @@ import './App.css'
 // x skapa en knapp
 // x visa den fakt som vi hämtar i stället  
 
+// reducer och actions (slice) 
+// store
+
+
 
 function App() {
-  const [randomFact, setRandomFact] = useState<string>('');
+ 
 
   return (
     <>
-      <button onClick={() => fetchFact(setRandomFact)}>Get fact!</button>
-      <p>
-        {randomFact}
-      </p>
+      <GetFact />
+      <RandomFact />
     </>
   )
-}
-
-
-async function fetchFact(setRandomFact : React.Dispatch<React.SetStateAction<string>>) {
-
-  const URL = 'https://uselessfacts.jsph.pl/api/v2/facts/random?language=en';
-
-  const response = await fetch(URL);
-  const json = await response.json();
-  const randomFact = json.text;
-
-  console.log(randomFact);
-  setRandomFact(randomFact);
 }
 
 
